@@ -1,0 +1,37 @@
+{
+  "milestone": 3,
+  "title": "Generate tests, triage failures",
+  "schedule": {
+    "targetMinutes": 14,
+    "hintAfterMinutes": [
+      7,
+      10,
+      13
+    ]
+  },
+  "levels": [
+    {
+      "label": "Nudge",
+      "text": "Give Claude the specification as well as the code, and ask for tests that follow the specification. Then run them. A failing test is a question, not a verdict: before you decide who is wrong, find the sentence in docs/tolerance-spec.md that settles it."
+    },
+    {
+      "label": "Approach",
+      "text": "Turn each row of your edge-case list into one test, named in words. Use a loop over the part table for the \"every part\" cases, so that no part is left out.\n\nFor each test that fails today, open the specification at the section that decides it, and write that section number in the triage. If the spec agrees with the test, the code is wrong. If the spec says something else, the test is wrong: fix the test and note that you did.\n\nAlso check the tests that PASS today. Does one of them assert something the specification does not say?"
+    },
+    {
+      "label": "Near-solution",
+      "text": "Expect about nine of your tests to fail on the shipped code, and for the right reason: the code accepts a part exactly on its upper limit, some parts are accepted on a limit because of rounding, and several kinds of \"no reading\" or \"impossible reading\" are scrapped or reworked instead of rechecked.\n\nIf Claude wrote a test that says a part exactly on a limit passes, that test passes today and contradicts section 4.4. It encodes the bug. Change it to follow the specification."
+    }
+  ],
+  "reveal": {
+    "referenceBrief": "CONTEXT: docs/tolerance-spec.md is the specification for classifyDefect(reading, partType) in src/inspection/classifyDefect.js. My list of edge cases is in docs/edge-cases.md.\n\nTASK: Write one test for each row of docs/edge-cases.md, in tests/learner/classify.test.js.\n\nCONSTRAINTS: Use node:test and node:assert/strict. Write each test from the SPECIFICATION, not from the code. Name each test so that it says the case in words. Loop over PARTS for the \"every part\" cases. Do not change anything in src/.\n\nACCEPTANCE: At least 12 tests. Run them and tell me which fail on the current code, and for each failure quote the sentence of the specification that decides it.\n\nVERIFY: npm test. Then I will triage each failure in docs/triage.md.",
+    "approach": "Slide 213 says it plainly: do not dismiss a failing AI-generated test as \"probably a bad test\" before you check the specification. The reverse is as dangerous: a test that passes is not proof that the code is right. A test written from the code asserts the bug.\n\nThe triage turns each failure into a decision with evidence: a bug in the code, or a mistake in the test, with the section of the specification that decides it.",
+    "commonMistakes": [
+      "Giving Claude only the code, and getting tests that assert what the code does (including the bug).",
+      "Deciding a failing test is wrong because \"the code has worked for years\".",
+      "A triage with a verdict and no evidence, or evidence that does not name a section of the specification.",
+      "Marking a failing test as skipped or todo so that npm test stays green.",
+      "Loops with no message, so that a failure does not say which part failed."
+    ]
+  }
+}

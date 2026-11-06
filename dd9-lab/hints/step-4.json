@@ -1,0 +1,36 @@
+{
+  "milestone": 4,
+  "title": "Reproduce and hypothesize",
+  "schedule": {
+    "targetMinutes": 8,
+    "hintAfterMinutes": [
+      4,
+      6,
+      7
+    ]
+  },
+  "levels": [
+    {
+      "label": "Nudge",
+      "text": "Pick the failing test with the smallest input. Run just that call by hand, and write down what it gives and what the specification says. Then find the nearest input that does NOT fail. Where the two meet is where the bug starts."
+    },
+    {
+      "label": "Approach",
+      "text": "A good reproduction is one reading and one part. Try the reading a thousandth of a millimetre either side: if only the exact value fails, the bug is on the boundary and not in the middle of the range.\n\nA good hypothesis names a line and a mechanism (\"the comparison at line N uses <= so ...\") and says what a log would show if you are right and if you are wrong. \"Something is wrong with the limits\" is not a hypothesis."
+    },
+    {
+      "label": "Near-solution",
+      "text": "The simplest failing call is a shaft at 25.05: the code says pass, and section 4.2 and 4.4 say rework. Its neighbours 25.049 (pass) and 25.051 (rework) are fine.\n\nLook at the comparison that decides pass in classifyDefect.js. One side is \"<\" and the other is \"<=\". Which side is the upper limit, and what does the spec say should happen exactly on it? Write that as your hypothesis, and say what the log should print."
+    }
+  ],
+  "reveal": {
+    "referenceBrief": "CONTEXT: tests/learner/classify.test.js has failing tests for classifyDefect (src/inspection/classifyDefect.js). The specification is docs/tolerance-spec.md.\n\nTASK: Help me reproduce one failure with the smallest input, and form one hypothesis about the cause that a log could prove wrong. Do not change any code yet.\n\nCONSTRAINTS: Give me one call with a reading and a part, what the code returns, and what the specification says. Give me a neighbouring call that works. The hypothesis must name a line and a mechanism, and say what to expect in a log if it is right and if it is wrong.\n\nACCEPTANCE: docs/investigation.md with a \"Reproduce\" section and a \"Hypothesis\" section.\n\nVERIFY: Run both calls myself. Then  npm run step -- 4.",
+    "approach": "Slide 201: skip reproduction and jump to a fix, and you fix the bug you imagined, not the one that is there. Narrowing to one input, and finding the neighbour that works, tells you where to look before you look.\n\nThe hypothesis is allowed to be partly wrong. What it must be is falsifiable: the next milestone is the experiment.",
+    "commonMistakes": [
+      "A reproduction that is a whole test file, or a call with several parts.",
+      "A hypothesis that is a restatement of the symptom (\"the boundary is wrong\").",
+      "No statement of what would prove the hypothesis wrong.",
+      "Starting to change the code. The code does not change in this milestone."
+    ]
+  }
+}

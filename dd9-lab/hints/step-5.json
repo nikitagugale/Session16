@@ -1,0 +1,37 @@
+{
+  "milestone": 5,
+  "title": "Instrument and confirm",
+  "schedule": {
+    "targetMinutes": 8,
+    "hintAfterMinutes": [
+      4,
+      6,
+      7
+    ]
+  },
+  "levels": [
+    {
+      "label": "Nudge",
+      "text": "Add one console.debug line to classifyDefect that prints exactly the values your hypothesis makes a claim about, and run your failing call. Print what the code compared, not what you typed in the test."
+    },
+    {
+      "label": "Approach",
+      "text": "Put the log just before the comparison that decides the answer. Print the reading, both limits, and the result of the comparison. Print the numbers in full. If your hypothesis is about the operator, the log should show the comparison being true on the boundary.\n\nThen run the same log for a different part. Does your hypothesis hold there too? Write down what you saw in each case, in a code block, and one verdict sentence. Take the log out before you commit."
+    },
+    {
+      "label": "Near-solution",
+      "text": "For the shaft at 25.05 the log shows upper=25.05 and a comparison of true: the operator is the cause there. Now run the same log for a shim at 1.65. The upper limit prints as 1.6500000000000001. Even with the operator fixed, 1.65 is below that number.\n\nSo the verdict for the shaft is Confirmed, and for the whole function it is Revised: there is a second cause, rounding error in the limits."
+    }
+  ],
+  "reveal": {
+    "referenceBrief": "CONTEXT: classifyDefect(25.05, 'shaft') returns 'pass' but section 4.2 and 4.4 of docs/tolerance-spec.md say 'rework'. My hypothesis is in docs/investigation.md.\n\nTASK: Add a targeted console.debug line to classifyDefect that prints the reading, the upper and lower limit and the result of the comparison. Run my failing call, then the same call for a shim at 1.65.\n\nCONSTRAINTS: One log line, placed just before the comparison. Print the numbers in full. Do not change the logic. Show me the exact output.\n\nACCEPTANCE: I paste the real output into docs/investigation.md under \"Evidence\" with a verdict (Confirmed, Rejected or Revised). Then remove the log: no console call may stay in src/.\n\nVERIFY: git diff shows no change in src/. Then  npm run step -- 5.",
+    "approach": "Slide 201 again: targeted logging, not print-everything. One line, the numbers your hypothesis is about, and a verdict you can defend from the output. The most useful result here is the surprise: a hypothesis that is right about the shaft and only half right about the module.\n\nThe log is evidence, then it is deleted. Debugging output left in code is noise for everyone who reads it later.",
+    "commonMistakes": [
+      "Logging the value typed in the test instead of the value the code computed.",
+      "Printing the numbers rounded (toFixed(2) hides the rounding error you are looking for).",
+      "Pasting a log you imagined, not one you ran.",
+      "Leaving the console.debug line in the code.",
+      "Calling the hypothesis Confirmed after checking only one part."
+    ]
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "milestone": 2,
+  "title": "Enumerate the edge cases",
+  "schedule": {
+    "targetMinutes": 12,
+    "hintAfterMinutes": [
+      6,
+      9,
+      11
+    ]
+  },
+  "levels": [
+    {
+      "label": "Nudge",
+      "text": "Sort the edge cases into families before you write rows: values on a limit, values just either side of a limit, no reading, impossible readings, and a part that does not exist. Then ask of each family: what does section 4 of the specification say?"
+    },
+    {
+      "label": "Approach",
+      "text": "Ask Claude to read BOTH the code and docs/tolerance-spec.md, and to list the cases without writing any test. Tell it to answer from the specification, and to say where the code disagrees.\n\nCheck the table against sections 4.4 to 4.7. Be suspicious of any row where Claude, or you, would have guessed the common-sense answer: is a part exactly on a limit \"in tolerance\"? What does the spec say?"
+    },
+    {
+      "label": "Near-solution",
+      "text": "A part exactly on a limit is outside (4.4). That includes the limit of every part, so look at the part table for sizes whose limits do not come out as clean decimals: 19.05 plus 0.03, 1.6 plus 0.05, 6.35 minus 0.07.\n\n\"No reading\" has more than one form (null, NaN, undefined). Impossible readings are zero, negative, and more than twice the nominal size, and exactly twice is possible. A part type that does not exist throws an error, even when there is no reading."
+    }
+  ],
+  "reveal": {
+    "referenceBrief": "CONTEXT: classifyDefect(reading, partType) in src/inspection/classifyDefect.js decides what to do with a part. The rules are in docs/tolerance-spec.md, section 4. The part table is src/inspection/parts.js.\n\nTASK: List the edge cases for classifyDefect in docs/edge-cases.md. Do not write any tests yet.\n\nCONSTRAINTS: Take the expected answers from the specification, not from what the code does today. If the code disagrees with the specification, say so in the Why column. Cover: each limit exactly and a step either side, a part whose limits are not clean decimals, every way the gauge can send nothing, impossible readings, and an unknown part.\n\nACCEPTANCE: A table (Case, Input, Expected, Why it matters) with at least 14 rows. Input is \"reading, part\". Expected is pass, rework, scrap, recheck or throws.\n\nVERIFY: Check three rows against the spec yourself. Then  npm run step -- 2.",
+    "approach": "This is the step the deck calls edge-case prompting: enumerate from the signature and the specification BEFORE writing code. The list is a place to catch your own and the AI's assumptions. A model that is shown only the code will write down what the code does, and it will call that correct.\n\nThe list is also the plan for milestone 3: one test for each row.",
+    "commonMistakes": [
+      "Taking the expected answer from the code instead of the specification (a part exactly on a limit \"passes\").",
+      "Only boundary cases for the shaft, the example everyone uses, and none for a part with an awkward size.",
+      "Listing \"invalid input\" once, when there are several different kinds.",
+      "Forgetting that exactly twice the nominal size is a real part, not a fault.",
+      "Writing tests at this step. The point is to look at the cases first."
+    ]
+  }
+}

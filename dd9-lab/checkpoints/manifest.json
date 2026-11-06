@@ -1,0 +1,83 @@
+{
+  "steps": {
+    "1": [
+      "c01-baseline"
+    ],
+    "2": [
+      "c01-baseline",
+      "c02-edge-cases"
+    ],
+    "3": [
+      "c01-baseline",
+      "c02-edge-cases",
+      "c03-tests"
+    ],
+    "4": [
+      "c01-baseline",
+      "c02-edge-cases",
+      "c03-tests",
+      "c04-repro"
+    ],
+    "5": [
+      "c01-baseline",
+      "c02-edge-cases",
+      "c03-tests",
+      "c04-repro",
+      "c05-evidence"
+    ],
+    "6": [
+      "c01-baseline",
+      "c02-edge-cases",
+      "c03-tests",
+      "c04-repro",
+      "c05-evidence",
+      "c06-fix"
+    ],
+    "7": [
+      "c01-baseline",
+      "c02-edge-cases",
+      "c03-tests",
+      "c04-repro",
+      "c05-evidence",
+      "c06-fix",
+      "c07-delta"
+    ],
+    "8": [
+      "c01-baseline",
+      "c02-edge-cases",
+      "c03-tests",
+      "c04-repro",
+      "c05-evidence",
+      "c06-fix",
+      "c07-delta",
+      "c08-mutation"
+    ],
+    "9": [
+      "c01-baseline",
+      "c02-edge-cases",
+      "c03-tests",
+      "c04-repro",
+      "c05-evidence",
+      "c06-fix",
+      "c07-delta",
+      "c08-mutation",
+      "c09-sampling"
+    ],
+    "demo": [],
+    "demo-done": [
+      "c-demo"
+    ]
+  },
+  "commits": {
+    "c01-baseline": "Baseline the coverage: numbers and ranked gaps",
+    "c02-edge-cases": "List the edge cases for classifyDefect from the specification",
+    "c03-tests": "Edge-case tests from the specification, and the triage of the failures",
+    "c04-repro": "Reproduce the boundary bug and write a hypothesis",
+    "c05-evidence": "Log evidence: confirmed for the shaft, revised for the shim",
+    "c06-fix": "Fix classifyDefect at the cause, with regression tests that failed first",
+    "c07-delta": "Report the coverage delta and the risks closed",
+    "c08-mutation": "Mutation check: both survivors killed with new tests",
+    "c09-sampling": "sampleSize: edge cases, tests, and the fix",
+    "c-demo": "parseSensorReading: property-based tests found silent NaN, and the parser is fixed"
+  }
+}

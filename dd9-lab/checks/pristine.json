@@ -1,0 +1,23 @@
+{
+  "docs/tolerance-spec.md": "90c6ca2518188d8cef25669cfbee35a1e71eeeb554bfb2b2c104840de6d374db",
+  "src/inspection/classifyDefect.js": "4e72f9c0eda35847d5c56563b4d9f1b2d4411f94480b80c9a8aa59470de9579f",
+  "src/inspection/errors.js": "e9e92061472353e13ec476a4d13cca6188b2e14242d2e65ecf6d1cd9ff46b2cb",
+  "src/inspection/label.js": "3d4d5c324d3b9fb77628522d64c1ee1a7ce8e26c15e60274593a99111b6457d4",
+  "src/inspection/parser.js": "1e1b855cd90bcc291f60231dcc89e0de2fa013d56d39e61bb3a7441bd2fac17f",
+  "src/inspection/parts.js": "eb1b1ec1f6db5970d8c4bc51ab79203bd65ec0b2128acd8c21827ad163b83eb2",
+  "src/inspection/sampling.js": "8fbb94556fe265dda0829af7bb58ca863cf0deaaf99c1118b4bc359165d556f4",
+  "tests/baseline/kit.test.js": "7eecdf21036f3b098d35a500355126c5e3e384aa13c29ef286aa371881812fdf",
+  "tests/existing/inspection.test.js": "ea20029014244de625d1d6e43df841e5b5e54efbe6db9a7644c763d74a437991",
+  "tests/lib/property.js": "c7954d07383ee108fd29583816f52d44a4a9592e9f923473f4d205aecf948157",
+  "scripts/coverage.mjs": "673c80db743c8ff1b0c490d7088a4eb2a4fe5af009a8ea2c9cdb08773715965c",
+  "scripts/help.mjs": "3ffac4a0d736f433f6e0dc7f1dafa167a8a8c549cd644605d0e81c779f3ade43",
+  "scripts/hint.mjs": "9cea0b24bf5df8f1fea022c9a81b402e339d430a8b52d68fdc7ffdbcf5fb35f8",
+  "scripts/lab-state.mjs": "5aeac601fd849af712a48fce08e869a532f79dbd33ffd3d3ba6d723d04ea9ee6",
+  "scripts/lab.mjs": "8af25b12a493a16e320af566196a2e7671482e2b15a86cf0cbcd2e6ac58cfe46",
+  "scripts/lib/coverage.mjs": "ea55f2d01cf0d9e7370629d3f966c573da0fe33c6482312c6e8db00e56ac49b4",
+  "scripts/lib/mutants.mjs": "bee7d5d1c5ddce052d210dd8a98cabfa39e3f957514cf9223023a3709f63ca14",
+  "scripts/milestones.mjs": "3e26b4f505bbb351b1bca1b333c2d54be305f1fe3166c1a958cf5cce5d2be0b0",
+  "scripts/mutate.mjs": "cc2bd962ebb2844e9090d2ccf9aff9ba632d1c7ecd9ec55f4dfa1d214fd7919c",
+  "scripts/progress.mjs": "bd7441758675c789431831ba0a736209ec53bd6a0cdf298ccdc8f105cd59009e",
+  "scripts/test.mjs": "4c124f9628e7ad11314645479983ac03ce59eeae3c881344dc661b85b2cca043"
+}

@@ -1,0 +1,38 @@
+{
+  "milestone": 6,
+  "title": "Fix the cause, red first",
+  "schedule": {
+    "targetMinutes": 14,
+    "hintAfterMinutes": [
+      7,
+      10,
+      12
+    ]
+  },
+  "levels": [
+    {
+      "label": "Nudge",
+      "text": "Write the regression tests before you touch the code, run them, and watch them fail. Then fix. Then check that a fix which only changed the obvious comparison would NOT be enough: is there a part for which it still fails?"
+    },
+    {
+      "label": "Approach",
+      "text": "Your milestone 5 log told you two things about the limits: the operator, and the way they are computed. Section 4.4 says how to compare: at the gauge's resolution, 0.001 mm, never as raw floating-point numbers.\n\nWork in whole thousandths of a millimetre (round each size, then compare whole numbers). Check the 4.5 and 4.6 rules in the same function: what happens to NaN, undefined, zero, negatives and very large readings?"
+    },
+    {
+      "label": "Near-solution",
+      "text": "Round the reading, the nominal size and the tolerance to whole thousandths (Math.round(x * 1000)), then compare: at or above the upper limit is rework, at or below the lower limit is scrap, in between is pass. Before that, return recheck for anything that is not a finite number, zero or less, or more than twice the nominal size. Check the part type first, with Object.hasOwn.\n\nRegression tests that fail on the old code: a shaft at 25.05, a sleeve at 19.08, a shim at 1.65, a spacer at 6.28 (scrap), and a NaN reading."
+    }
+  ],
+  "reveal": {
+    "referenceBrief": "CONTEXT: classifyDefect in src/inspection/classifyDefect.js has bugs that tests/learner/classify.test.js found. The rules are in docs/tolerance-spec.md section 4 (4.4 says to compare at 0.001 mm).\n\nTASK: First write tests/learner/regression.test.js: one test for each bug, named \"regression: ...\", each of which fails on the current code. Run them and show me that they fail. Then fix classifyDefect so that all of them pass.\n\nCONSTRAINTS: Fix the cause, for every part: do not special-case a value or a part. Compare sizes as whole thousandths of a millimetre. Keep the name, arguments and return values. Do not edit parts.js or any test in tests/existing.\n\nACCEPTANCE: At least three regression tests, one of them for a part where changing only the comparison operator is not enough. npm test passes.\n\nVERIFY: npm test. Then  npm run step -- 6.",
+    "approach": "The red-first sequence proves the fix: a test that fails on the old code and passes on the new one is evidence that the change did something. The half-fix check proves the fix reached the cause: if a test would pass after only changing the operator, the test is not guarding the whole bug.\n\nSlide 216 names the trap: fixing the symptom (special-casing one boundary value) instead of the root cause (the comparison itself).",
+    "commonMistakes": [
+      "Changing <= to < and stopping when the shaft test goes green.",
+      "Special-casing one value or one part.",
+      "Writing the regression tests after the fix, so that they were never red.",
+      "Regression tests that only use the shaft.",
+      "Fixing NaN but forgetting undefined, or forgetting exactly twice the nominal size.",
+      "Changing parts.js to make the numbers come out clean."
+    ]
+  }
+}

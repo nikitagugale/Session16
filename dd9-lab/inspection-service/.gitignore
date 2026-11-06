@@ -1,0 +1,6 @@
+node_modules
+.lab
+.checkpoint-backup
+.data
+*.log
+tests/steps

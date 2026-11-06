@@ -1,0 +1,36 @@
+{
+  "milestone": 7,
+  "title": "Report the coverage delta",
+  "schedule": {
+    "targetMinutes": 8,
+    "hintAfterMinutes": [
+      4,
+      6,
+      7
+    ]
+  },
+  "levels": [
+    {
+      "label": "Nudge",
+      "text": "The before numbers are the baseline you wrote in milestone 1: the team's tests on the code as it was shipped (open docs/baseline.md). Running  npm run coverage -- --team  now gives other numbers, because the code has changed. The after numbers come from  npm run coverage . Copy them exactly. Then ask: if someone said \"so what is safer now?\", which sentence would you give them?"
+    },
+    {
+      "label": "Approach",
+      "text": "Write each risk as something that could go wrong at the factory, in plain words (\"a part exactly on a limit is accepted\"), and copy the exact title of the test that would catch it. Group your tests by risk, not by line.\n\nThe last section is the honest one: what do your tests and your numbers not protect? Look at the other files in src/inspection/."
+    },
+    {
+      "label": "Near-solution",
+      "text": "Four risks are easy to name from your tests: a part on a limit accepted (the shaft), the same through rounding error for parts with awkward sizes, a part nobody measured getting a verdict (NaN, undefined), and a sensor fault judged as a part (negative, zero, too big).\n\nStill not covered: parseSensorReading has no tests of its own and sampleSize is untested. And 100% of a file says nothing about whether the parts table is right."
+    }
+  ],
+  "reveal": {
+    "referenceBrief": "CONTEXT: The team's tests covered classifyDefect.js at the numbers in docs/baseline.md. My tests are in tests/learner and the code is fixed.\n\nTASK: Write docs/coverage-delta.md: the before and after coverage of classifyDefect.js, and the specific risks my tests now guard.\n\nCONSTRAINTS: Use the real numbers: the baseline in docs/baseline.md (before: the team's tests on the code as shipped) and  npm run coverage  (after). Each risk is a sentence a delivery lead would understand, followed by the exact title of a test in tests/learner that guards it. Do not claim anything the tests do not show.\n\nACCEPTANCE: A table (File, Lines % before, Lines % after, Branches % before, Branches % after); \"## Risks closed\" with at least three risks; \"## Still not covered\" with at least 15 words naming something real.\n\nVERIFY: Check every test title against the file. Then  npm run step -- 7.",
+    "approach": "Slide 202: \"coverage went up\" convinces nobody; \"this now catches boundary misclassification\" is the sentence that answers the risk question. A credible report ties each gain to a defect class, uses numbers that anyone can reproduce, and says what is still open.\n\nThis is the same discipline as Monday's before-and-after quality report, applied to tests.",
+    "commonMistakes": [
+      "Reporting a percentage with no risk attached.",
+      "Risks that are really test names rewritten (\"tests the shaft\").",
+      "\"Before\" numbers measured with your own tests included, or measured on the fixed code instead of the baseline.",
+      "A \"Still not covered\" section that says everything is covered."
+    ]
+  }
+}

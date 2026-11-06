@@ -1,0 +1,36 @@
+{
+  "milestone": 9,
+  "title": "Homework: a second function",
+  "schedule": {
+    "targetMinutes": 60,
+    "hintAfterMinutes": [
+      10,
+      20,
+      30
+    ]
+  },
+  "levels": [
+    {
+      "label": "Nudge",
+      "text": "Do the same loop on  sampleSize : list the edge cases from section 6, write the tests, find what fails, reproduce one failure, fix the cause, and write down what the tests now guard. Start with the band edges: there are ten bands, so how many edges are there?"
+    },
+    {
+      "label": "Approach",
+      "text": "Section 6.1 says each band includes its largest value. Test the last lot of every band and the first lot of the next. Section 6.2 lists what is refused with a RangeError: below two, a fraction, NaN, text. Which of those does the shipped code refuse?\n\nPut at least two regression tests in the same file, named \"regression: ...\", and run them on the old code first."
+    },
+    {
+      "label": "Near-solution",
+      "text": "The shipped code uses \"<\" where the table needs \"<=\", so every lot at the top of a band gets the next band's sample. It also returns 2 for zero, negative and fractional lots, and returns undefined for NaN. Fix both: validate first (a whole number of at least 2, or throw a RangeError), then compare with \"<=\".\n\nThe mutation check on sampling.js should kill 85% or more: that needs a test at both sides of the band edges and on the table values."
+    }
+  ],
+  "reveal": {
+    "referenceBrief": "CONTEXT: sampleSize(lotSize) in src/inspection/sampling.js is specified in section 6 of docs/tolerance-spec.md. It has no tests.\n\nTASK: Enumerate its edge cases in docs/sampling-cases.md, write tests in tests/learner/sampling.test.js, show me which fail on the current code, and fix sampling.js.\n\nCONSTRAINTS: Write tests from the specification. Test both sides of every band edge. Include at least two tests named \"regression: ...\" that fail on the current code. Do not touch classifyDefect.js or any test in tests/existing.\n\nACCEPTANCE: At least six tests; npm test passes; npm run mutate -- src/inspection/sampling.js kills 85% or more.\n\nVERIFY: npm test, then npm run step -- 9.",
+    "approach": "The same method on a second function is what turns a lab into a habit. The data here is a table, so the bugs are the classic ones: an off-by-one at every edge, and missing input validation. A table-driven test over all the edges is the cheapest way to cover it.\n\nThe stretch is the property-based test for the parser, the same tool as the demo.",
+    "commonMistakes": [
+      "Testing only the middle of each band.",
+      "Fixing the edges and leaving NaN returning undefined.",
+      "Regression tests that pass on the old code.",
+      "Mutation score of 100% reached by deleting the table values from the tests that matter."
+    ]
+  }
+}

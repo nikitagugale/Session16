@@ -1,0 +1,12 @@
+{
+  "docs/tolerance-spec.md": "90c6ca2518188d8cef25669cfbee35a1e71eeeb554bfb2b2c104840de6d374db",
+  "src/inspection/classifyDefect.js": "4e72f9c0eda35847d5c56563b4d9f1b2d4411f94480b80c9a8aa59470de9579f",
+  "src/inspection/errors.js": "e9e92061472353e13ec476a4d13cca6188b2e14242d2e65ecf6d1cd9ff46b2cb",
+  "src/inspection/label.js": "3d4d5c324d3b9fb77628522d64c1ee1a7ce8e26c15e60274593a99111b6457d4",
+  "src/inspection/parser.js": "1e1b855cd90bcc291f60231dcc89e0de2fa013d56d39e61bb3a7441bd2fac17f",
+  "src/inspection/parts.js": "eb1b1ec1f6db5970d8c4bc51ab79203bd65ec0b2128acd8c21827ad163b83eb2",
+  "src/inspection/sampling.js": "8fbb94556fe265dda0829af7bb58ca863cf0deaaf99c1118b4bc359165d556f4",
+  "tests/baseline/kit.test.js": "7eecdf21036f3b098d35a500355126c5e3e384aa13c29ef286aa371881812fdf",
+  "tests/existing/inspection.test.js": "ea20029014244de625d1d6e43df841e5b5e54efbe6db9a7644c763d74a437991",
+  "tests/lib/property.js": "c7954d07383ee108fd29583816f52d44a4a9592e9f923473f4d205aecf948157"
+}

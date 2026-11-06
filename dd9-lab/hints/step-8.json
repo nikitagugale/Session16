@@ -1,0 +1,36 @@
+{
+  "milestone": 8,
+  "title": "Run a mutation spot check",
+  "schedule": {
+    "targetMinutes": 8,
+    "hintAfterMinutes": [
+      4,
+      6,
+      7
+    ]
+  },
+  "levels": [
+    {
+      "label": "Nudge",
+      "text": "Run  npm run mutate -- src/inspection/classifyDefect.js --list  to see the small bugs it will put in, then run it without --list. For each one that SURVIVES, ask: what input would make the buggy version give a different answer from the real one?"
+    },
+    {
+      "label": "Approach",
+      "text": "For each survivor, write down an input that tells the real code from the mutant. If you can, that is a missing test: add it. If you cannot find any input, the change may be equivalent (it cannot change any answer): say why in the table. \"Equivalent\" is a claim about every possible input, and the check will test it.\n\nRun the check again after you add tests, and copy the score. The note's score has to match a fresh run."
+    },
+    {
+      "label": "Near-solution",
+      "text": "With a good suite, one or two mutants survive. One of them changes the test for \"zero or less\" into \"one or less\": a reading of 0.5 for a shim is a real part that is far too small, so a test for it kills that mutant. Another changes 1000 to 1001 in the helper that turns millimetres into thousandths. It looks equivalent, because a limit and a reading are scaled by the same ratio. It is not: the gauge text may have four decimals, and the specification (4.4) says to round the reading to the nearest 0.001 first. Look for a shim reading with four decimals, just inside a limit, where the two versions round to different thousandths. Add that test, and the mutant is killed."
+    }
+  ],
+  "reveal": {
+    "referenceBrief": "CONTEXT: classifyDefect.js is fixed, and my tests are in tests/learner. npm run mutate puts one small bug at a time into a copy of the file and runs the tests.\n\nTASK: Run  npm run mutate -- src/inspection/classifyDefect.js . For each mutant that survives, either write a test that kills it or explain why it cannot matter. Then write docs/mutation.md.\n\nCONSTRAINTS: Do not change src/. A new test must fail on the mutant and pass on the real code. Say \"equivalent\" only with a reason.\n\nACCEPTANCE: \"Score: K of N killed\" matching a fresh run, at least 90% killed, no mutant of a limit comparison alive, and a table (Mutant, Verdict, Why) for each survivor that is left.\n\nVERIFY: Run npm run mutate again and compare. Then  npm run step -- 8.",
+    "approach": "Slide 203: coverage shows a line was executed; mutation testing shows whether a test would catch a bug on that line. A test that runs the line but would pass even if the line's logic were wrong is not testing the line, it is just visiting it.\n\nThe score is a diagnostic too. The valuable output is the list of survivors, each one a specific question about what your tests do not check.",
+    "commonMistakes": [
+      "Chasing 100% by writing tests that assert nothing.",
+      "Calling every survivor \"equivalent\" without finding the input that proves it.",
+      "A score in the note that does not match a fresh run.",
+      "Running the mutation check before the tests pass (it will refuse)."
+    ]
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "name": "inspection-service",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "DD9 lab: the shop-floor quality-inspection module of a made-up factory. Close the test gap with AI-generated edge cases, find and fix real bugs, and prove the tests are strong.",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "node scripts/test.mjs",
+    "coverage": "node scripts/coverage.mjs",
+    "mutate": "node scripts/mutate.mjs",
+    "help": "node scripts/help.mjs",
+    "setup": "node scripts/lab.mjs setup",
+    "start": "node scripts/lab.mjs start",
+    "progress": "node scripts/progress.mjs",
+    "hint": "node scripts/hint.mjs",
+    "step": "node scripts/lab.mjs step",
+    "checkpoint": "node scripts/lab.mjs checkpoint",
+    "doctor": "node scripts/lab.mjs doctor"
+  }
+}

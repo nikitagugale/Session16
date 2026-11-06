@@ -1,0 +1,37 @@
+{
+  "milestone": 1,
+  "title": "Baseline the coverage",
+  "schedule": {
+    "targetMinutes": 10,
+    "hintAfterMinutes": [
+      5,
+      7,
+      9
+    ]
+  },
+  "levels": [
+    {
+      "label": "Nudge",
+      "text": "Run  npm run coverage -- --team  first. It measures only the team's tests, and that is your baseline (the full run will include your own tests later). Then read each block of lines it says never ran, and ask of each one: if this were wrong in production, what would happen to a real part?"
+    },
+    {
+      "label": "Approach",
+      "text": "Open classifyDefect.js at the lines in the \"Never run\" column and say, in a few words, what each block does: an answer, an error, a fallback. Rank them by harm, not by size. Which wrong answer sends a bad part to a customer? Which one throws away a good part? Which one only changes the words on a screen?\n\nIf you use Claude, ask it to rank the gaps, and then check its top two against the specification."
+    },
+    {
+      "label": "Near-solution",
+      "text": "Three blocks of classifyDefect.js never run: the answers for a part that is too big or too small, the answer for no reading, and the error for a part type that is not in the table. The first two are high risk (a wrong verdict ships a bad part or scraps a good one). The error is medium. The screen text in label.js is low.\n\nFor \"Coverage cannot see:\", think about what is not in the list at all. Coverage lists code that exists and was not run. Is there anything the specification asks for that the code does not do?"
+    }
+  ],
+  "reveal": {
+    "referenceBrief": "CONTEXT: inspection-service decides what to do with a measured part. The code is in src/inspection/, the specification is docs/tolerance-spec.md, and the team's tests are in tests/existing. Nothing has been changed yet.\n\nTASK: Write docs/baseline.md: the coverage of the team's tests for classifyDefect.js and parser.js, and a ranked list of what classifyDefect.js and label.js leave untested.\n\nCONSTRAINTS: Use the numbers that  npm run coverage -- --team  prints, and copy the line numbers from its \"Never run\" column. For each untested block say what the code does there and what goes wrong in production if it is wrong. Rate each high, medium or low by the harm to a real part, highest first. Do not change any file except the report.\n\nACCEPTANCE: Two tables (File, Lines %, Branches %) and (Untested, Lines, If this is wrong in production, Risk); one row for every untested block of classifyDefect.js and one for label.js; a line that starts \"Coverage cannot see:\".\n\nVERIFY: Run the coverage command again and compare. Then  npm run step -- 1.",
+    "approach": "A coverage number says which code no test has run. It does not say which gaps matter. The baseline is the starting point for everything after it, so it must be measured on the team's tests alone, and the gaps must be read as risks. The cosmetic code in label.js is the decoy: it is untested, and it hardly matters.\n\nThe quiet lesson is on the last line. Coverage can only list code that exists. The module is missing branches that the specification asks for, and no coverage tool will ever list a branch that is not there.",
+    "commonMistakes": [
+      "Measuring with all the tests instead of the team's (the numbers then change as soon as you add a test).",
+      "Ranking by the number of lines in a gap instead of the harm of a wrong answer.",
+      "Rating the screen text in label.js as high because it is the biggest untested block.",
+      "Copying line numbers from memory instead of from the tool.",
+      "A \"Coverage cannot see\" line that repeats the table instead of naming something missing."
+    ]
+  }
+}
